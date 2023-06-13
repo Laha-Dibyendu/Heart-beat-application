@@ -1,0 +1,417 @@
+{% include 'admin-layout.html' %}
+
+<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add URL</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="add-form">
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Name:</label>
+            <input type="text" class="form-control" id="recipient-name">
+          </div>
+          <div class="form-group">
+            <label for="url-text" class="col-form-label">URL:</label>
+            <textarea class="form-control" id="url-text"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="is_active" class="col-form-label">Is Active:</label>
+            <select id="is_active" name="is_active" class="form-control">
+              <option value="True">True</option>
+              <option value="False">False</option>
+            </select>
+            <!-- <textarea class="form-control" id="message-text"></textarea> -->
+          </div>
+          <div class="form-group">
+            <label for="site-type" class="col-form-label">Site Type:</label>
+            <select id="site_type" name="site_type" class="form-control">
+              <option value="In House">In House</option>
+              <option value="Client">Client</option>
+            </select>
+            <!-- <textarea class="form-control" id="message-text"></textarea> -->
+          </div>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Save</button>
+        </form>
+      </div>
+      <!-- <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Save</button>
+      </div> -->
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Edit URL</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="edit-form">
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Name:</label>
+            <input type="text" class="form-control" id="recipient-name-edit">
+          </div>
+          <div class="form-group">
+            <label for="url-text" class="col-form-label">URL:</label>
+            <textarea class="form-control" id="url-text-edit"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="is_active" class="col-form-label">Is Active:</label>
+            <select id="is_active-edit" name="is_active" class="form-control">
+              <option value="True">True</option>
+              <option value="False">False</option>
+            </select>
+            <!-- <textarea class="form-control" id="message-text"></textarea> -->
+          </div>
+          <div class="form-group">
+            <label for="site-type" class="col-form-label">Site Type:</label>
+            <select id="site_type-edit" name="site_type" class="form-control">
+              <option value="In House">In House</option>
+              <option value="Client">Client</option>
+            </select>
+            <!-- <textarea class="form-control" id="message-text"></textarea> -->
+          </div>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Save</button>
+        </form>
+      </div>
+      <!-- <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Save</button>
+      </div> -->
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Delete URL ?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="delete-form">
+          <div class="form-group">
+          </div>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+          <button type="submit" class="btn btn-primary">Yes</button>
+        </form>
+      </div>
+      <!-- <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Save</button>
+      </div> -->
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+<!-- Begin Page Content -->
+<div class="container-fluid">
+
+  <!-- Page Heading -->
+  <h1 class="h3 mb-2 text-gray-800" style="display:inline;">URL Table</h1>
+  <span class="float-md-right" style="display:inline;">
+    <button class="btn btn-success" data-toggle="modal" data-target="#addModal">
+      <!--begin::Svg Icon | path: icons/duotune/art/art005.svg-->
+      <span class="svg-icon svg-icon-3">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
+          <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
+        </svg>Add URL
+      </span>
+      <!--end::Svg Icon-->
+    </button>
+  </span>
+  <p class="mb-4">URL Table shows the list of URLs we are monitoring.</p>
+  
+  <!-- DataTales Example -->
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary">URLs Table</h6>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>URL</th>
+              <th>Active</th>
+              <th>Site Type</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tfoot>
+            <tr>
+              <th>Name</th>
+              <th>URL</th>
+              <th>Active</th>
+              <th>Site Type</th>
+              <th>Action</th>
+            </tr>
+          </tfoot>
+          <tbody>
+            <!--begin::Table body-->
+            {% for row in rows %}
+            <tr data-id={{ row[0] }}>
+              <td>
+                <div class="d-flex align-items-center">
+                  <div class="d-flex justify-content-start flex-column">
+                    <span class="text-dark fw-bolder text-hover-primary fs-6">{{ row[1] }}</span>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div class="d-flex align-items-center">
+                  <div class="d-flex justify-content-start flex-column">
+                    <a href={{ row[2] }} class="text-dark fw-bolder text-hover-primary d-block fs-6">{{ row[2] }}</a>
+                  </div>
+                </div>
+              </td>
+              <td class="text-end">
+                <div class="d-flex flex-column w-100 me-2">
+                  <div class="d-flex flex-stack mb-2">
+                    <span class="text-muted me-2 fs-7 fw-bold">{{ row[3] }}</span>
+                  </div>
+                </div>
+              </td>
+              <td class="text-end">
+                <div class="d-flex flex-column w-100 me-2">
+                  <div class="d-flex flex-stack mb-2">
+                    <span class="text-muted me-2 fs-7 fw-bold">{{ row[4] }}</span>
+                  </div>
+                </div>
+              </td>
+              <td style="position: relative;">
+                <a href="#" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm" 
+                 data-toggle="modal" data-target="#exampleModal" data-id="{{ row[0] }}"
+                  data-whatever="{{ row[1] }}" data-valss="{{ row[2] }}">
+                  <!--begin::Svg Icon | path: icons/duotune/art/art005.svg-->
+                  <span class="svg-icon svg-icon-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                      <path opacity="0.3"
+                        d="M21.4 8.35303L19.241 10.511L13.485 4.755L15.643 2.59595C16.0248 2.21423 16.5426 1.99988 17.0825 1.99988C17.6224 1.99988 18.1402 2.21423 18.522 2.59595L21.4 5.474C21.7817 5.85581 21.9962 6.37355 21.9962 6.91345C21.9962 7.45335 21.7817 7.97122 21.4 8.35303ZM3.68699 21.932L9.88699 19.865L4.13099 14.109L2.06399 20.309C1.98815 20.5354 1.97703 20.7787 2.03189 21.0111C2.08674 21.2436 2.2054 21.4561 2.37449 21.6248C2.54359 21.7934 2.75641 21.9115 2.989 21.9658C3.22158 22.0201 3.4647 22.0084 3.69099 21.932H3.68699Z"
+                        fill="black" />
+                      <path
+                        d="M5.574 21.3L3.692 21.928C3.46591 22.0032 3.22334 22.0141 2.99144 21.9594C2.75954 21.9046 2.54744 21.7864 2.3789 21.6179C2.21036 21.4495 2.09202 21.2375 2.03711 21.0056C1.9822 20.7737 1.99289 20.5312 2.06799 20.3051L2.696 18.422L5.574 21.3ZM4.13499 14.105L9.891 19.861L19.245 10.507L13.489 4.75098L4.13499 14.105Z"
+                        fill="black" />
+                    </svg>
+                  </span>
+                  <!--end::Svg Icon--></a>
+          
+                  <a href="#" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm" 
+                  data-toggle="modal" data-target="#deleteModal" data-id={{ row[0] }} data-whatever="{{ row[1] }}">
+                    <!--begin::Svg Icon | path: icons/duotune/general/gen027.svg-->
+                    <span class="svg-icon svg-icon-3">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path
+                          d="M5 9C5 8.44772 5.44772 8 6 8H18C18.5523 8 19 8.44772 19 9V18C19 19.6569 17.6569 21 16 21H8C6.34315 21 5 19.6569 5 18V9Z"
+                          fill="black" />
+                        <path opacity="0.5"
+                          d="M5 5C5 4.44772 5.44772 4 6 4H18C18.5523 4 19 4.44772 19 5V5C19 5.55228 18.5523 6 18 6H6C5.44772 6 5 5.55228 5 5V5Z"
+                          fill="black" />
+                        <path opacity="0.5" d="M9 4C9 3.44772 9.44772 3 10 3H14C14.5523 3 15 3.44772 15 4V4H9V4Z" fill="black" />
+                      </svg>
+                    </span>
+                    <!--end::Svg Icon-->
+                  </a>
+              </td>         
+            </tr>       
+            {% endfor %}
+          </tbody>
+          <!--end::Table body-->
+
+        </table>
+        <script>
+          $('#addModal').on('show.bs.modal', function (event) {
+            console.log("helloadd");
+
+            $("#add-form").submit(function (event) {
+              // Prevent the form from submitting normally
+              event.preventDefault();
+              // Get the form data
+              console.log("Hello Adding")
+              var name = $("#recipient-name").val();
+              var url = $("#url-text").val();
+              var is_active = $("#is_active").val();
+              var site_type = $('#site_type').val();
+              console.log(`Element: ${name}, ${url}, ${is_active}, ${site_type} `);
+              // Send the data to the server using AJAX
+              $.ajax({
+                type: "POST",
+                url: "/submit",
+                data: {  name: name, url: url, is_active: is_active, site_type: site_type },
+                success: function (response) {
+                  // Display a success message
+                  alert("Data Submitted successfully!");
+                  window.location.href = '/url_table';
+                },
+                error: function (response) {
+                  // Display an error message
+                  alert("Error submitting data!");
+                  window.location.href = '/url_table';
+                }
+              });
+            });
+          })
+        </script>
+        <script>
+          $('#exampleModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget) // Button that triggered the modal
+            var id = button.data('id')
+            var val1 = button.data('valss')
+            var recipient = button.data('whatever') // Extract info from data-* attributes
+            // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+            
+            // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+            var modal = $(this)
+            modal.find('.modal-title').text('Editing to ' + recipient)
+            modal.find('.modal-body input').val(recipient)
+            modal.find('.modal-body textarea').val(val1)
+            console.log("hello");
+
+            $("#edit-form").submit(function (event) {
+              // Prevent the form from submitting normally
+              event.preventDefault();
+              // Get the form data
+              console.log("Hello Submit")
+              var id = button.data('id');
+              var name = $("#recipient-name-edit").val();
+              var url = $("#url-text-edit").val();
+              var is_active = $("#is_active-edit").val();
+              var site_type = $('#site_type-edit').val();
+              console.log(`Clicked element: id=${id},${name}, ${url}, ${is_active}, ${site_type} `);
+              // Send the data to the server using AJAX
+              $.ajax({
+                type: "POST",
+                url: "/updates",
+                data: { id: id, name: name, url: url, is_active: is_active, site_type: site_type },
+                success: function (response) {
+                  // Display a success message
+                  alert("Data updated successfully!");
+                  window.location.href = '/url_table';
+                },
+                error: function (response) {
+                  // Display an error message
+                  alert("Error updating data!");
+                  window.location.href = '/url_table';
+                }
+              });
+            });
+          })
+        </script>
+        <script>
+          $('#deleteModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget) // Button that triggered the modal
+            var id = button.data('id')
+            var recipient = button.data('whatever') // Extract info from data-* attributes
+            // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+            
+            // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+            var modal = $(this)
+            modal.find('.modal-title').text('Are you sure to delete ' + recipient+' ?')
+            console.log("hello delete");
+
+            $("#delete-form").submit(function (event) {
+              // Prevent the form from submitting normally
+              event.preventDefault();
+              // Get the form data
+              console.log("Hello DELETE")
+              var id = button.data('id');
+              
+              console.log(`Clicked element: id=${id}`);
+              // Send the data to the server using AJAX
+              $.ajax({
+                type: "DELETE",
+											url: "/deleted",
+											data: { id: id },
+											success: function (response) {
+												// Display a success message
+												alert("Data deleted successfully!");
+                        window.location.href = '/url_table';
+												// Hide the form
+											},
+											error: function (response) {
+												// Display an error message
+												alert("Error submitting data!");
+                        window.location.href = '/url_table';
+									}
+              });
+            });
+          })
+        </script>
+      </div>
+    </div>
+  </div>
+
+</div>
+<!-- /.container-fluid -->
+
+</div>
+<!-- End of Main Content -->
+
+<!-- Footer -->
+<footer class="sticky-footer bg-white">
+  <div class="container my-auto">
+    <div class="copyright text-center my-auto">
+      <span>Copyright &copy; Your Website 2019</span>
+    </div>
+  </div>
+</footer>
+<!-- End of Footer -->
+
+</div>
+<!-- End of Content Wrapper -->
+
+</div>
+<!-- End of Page Wrapper -->
+
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+  <i class="fas fa-angle-up"></i>
+</a>
+
+<!-- Bootstrap core JavaScript-->
+<script src="static/vendor/jquery/jquery.min.js"></script>
+<script src="static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!-- Core plugin JavaScript-->
+<script src="static/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+<!-- Custom scripts for all pages-->
+<script src="static/js/sb-admin-2.min.js"></script>
+
+<!-- Page level plugins -->
+<script src="static/vendor/datatables/jquery.dataTables.min.js"></script>
+<script src="static/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+<!-- Page level custom scripts -->
+<script src="static/js/demo/datatables-demo.js"></script>
+
+</body>
+
+</html>
