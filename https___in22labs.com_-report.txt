@@ -1,0 +1,1 @@
+{"url": "https://in22labs.com/", "weak_cypher": ["TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA", "TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256", "TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA", "TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384"], "http2": false, "http1": true, "click_jacking": "It is vulnerable to clickjacking", "hsts": false, "xframe": false, "mime": false}
